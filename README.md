@@ -1,0 +1,1 @@
+The Student Database Application is a software written in Java designed to manage student information, enrollment, tuition status, and tuition balance. It allows for an efficient and organized system to store, retrieve and update student information.
