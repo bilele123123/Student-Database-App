@@ -5,8 +5,7 @@ public class Student {
     private static int idCounter = 0;
     private String contactInformation;
     private String[] enrolledCourses;
-    private boolean tuitionStatus;
-    private double tuitionDebt;
+    private int coursePrice = 600;
     public String studentFirstName;
     public String studentLastName;
     public String gradeYear;
@@ -26,9 +25,10 @@ public class Student {
         System.out.print("Enter your phone number: (999)-999-");
         this.contactInformation = sc.nextLine();
 
-        
-        ID = this.generateID(studentFirstName, studentLastName, gradeYear);
-        System.out.println(ID);
+        String id = this.generateID(studentFirstName, studentLastName, gradeYear);
+        System.out.println("Your student ID is: " + id);
+
+        enrollCourse();
 
     }
     //Generate unique student id
@@ -53,11 +53,9 @@ public class Student {
     }
 
     class Enroll {
-        private int coursePrice = 600;
-
         public String[] enrollCourses() {
             Scanner sc = new Scanner(System.in);
-            System.out.println("\nWelcome to Java University! Would you like to enroll into your courses: YES NO");
+            System.out.println("\nWould you like to enroll into your courses: YES NO");
             String enrollment = sc.nextLine();
     
             if (enrollment.toLowerCase().equals("yes"))
@@ -85,7 +83,45 @@ public class Student {
     }
 
     //View tuition status ie. check if there is outstanding tuition balance and how much tuition debt the student is in.
-
+    public double calculateTuition(String[] enrolledCourses) {
+        if (enrolledCourses.length == 0)
+        {
+            System.out.print("You've yet enrolled in any courses yet...");
+            return 0.0;
+        }
+        else
+        {
+            return enrolledCourses.length * coursePrice;
+        }
+    }
     //Show student status, contact information, enrolled courses, tuition status, outstanding balance, ID and enrolled courses.
+    public void checkStatus() {
+        if (enrolledCourses == null)
+        {
+            enrollCourse();
+        }
+        double tuition = calculateTuition(enrolledCourses);
+        if (tuition == 0.0)
+        {
+            if (studentFirstName == null || studentLastName == null)
+            {
+                Student stud = new Student();
+                stud.enrollCourse();
+            }
+            enrollCourse();
+        }
+        else
+        {
+            String id = generateID(studentFirstName, studentLastName, gradeYear);
+            System.out.println("\nYour id is: " + id);
+            System.out.println("Your tuition amount is: $" + tuition);
+            System.out.println("The courses you've enrolled in are: " );
+            for (int i = 0; i < enrolledCourses.length; i++)
+            {
+                System.out.println(enrolledCourses[i]);
+            }
+        }
+       
+    }
 }
 

@@ -1,6 +1,6 @@
 public class StudentDatabaseApp {
     public static void main(String[] args) {
-        System.out.println("HELLO WORLD");
- 
+        Student newStudent = new Student();
+        newStudent.checkStatus();
     }
 }
